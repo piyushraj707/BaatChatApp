@@ -1,0 +1,51 @@
+.Container-1 {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	height: 100vh;
+}
+.Container-2 {
+	display: flex;
+	flex-direction: column;
+	padding: 20px 10px;
+	background-color: #F6F7D3;
+	border-style: solid;
+	border-color: #95959520;
+	border-radius: 10px;
+	border-width: 3px;
+	align-items: center;
+	color: #495664;
+}
+
+.mainForm {
+	display: flex;
+	flex-direction: column;
+}
+
+.Container-2 input {
+	border: none;
+	height: 2rem;
+	width: 20rem;
+	margin: 2px 0px 12px 0px;
+	border-radius: 5px;
+	padding: 2px 5px;
+}
+.Container-2 input:focus {
+	outline: none;
+}
+
+.Container-2 button {
+	height: 2rem;
+	border: none;
+	margin: 12px 0px 0px 0px;
+	color: #495664;
+}
+.Container-2 button:hover {
+	background-color: #495664;
+	cursor: pointer;
+	color: #F6F7D3;
+}
+
+.Container-2 > div {
+	margin: 20px 0px 0px 0px;
+}
