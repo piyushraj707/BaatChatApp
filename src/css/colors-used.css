@@ -1,0 +1,18 @@
+.colorsUsed-main {
+	display: flex;
+	flex-direction: column;
+}
+.colorsUsed-1 {
+	background-color: #F6F7D3;
+	height: 33vh;
+}
+
+.colorsUsed-2 {
+	background-color: #495664;
+	height: 33vh;
+}
+
+.colorsUsed-3 {
+	background-color: #F8FCEB;
+	height: 34vh;
+}

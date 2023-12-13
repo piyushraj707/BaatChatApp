@@ -1,0 +1,43 @@
+.navbar-outer {
+	display: block;
+	position: fixed;
+	width: 100vw;
+}
+
+.navbar-inner {
+	background-color: #495664;
+	border-radius: 8px;
+	color: #F8FCEB;
+	display: flex;
+	height: 50px;
+	margin: 15px 20px 0px 20px;
+	justify-content: space-between;
+}
+
+.navbar-content-left {
+	align-items: center;
+	display: flex;
+	height: 100%;
+	padding: 0px 30px;
+}
+
+.navbar-content-right {
+	align-items: center;
+	display: flex;
+	height: 100%;
+	padding: 0px 30px;
+}
+
+.navbar-content-right-login{
+	color: inherit;
+	text-decoration: none;
+}
+
+.logo-img {
+	height: 100%;
+}
+
+.logo-name {
+	font-family: 'Pacifico', cursive;
+	font-size: x-large;
+}
