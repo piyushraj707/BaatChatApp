@@ -5,15 +5,13 @@ import { Link } from "react-router-dom";
 import CryptoJS from "crypto-js";
 import '../css/login-signup.css'
 
-function LoginScreen() {
+function LoginScreen(props) {
 	const navTo = useNavigate();
 	const [formData, setFormData] = React.useState({username: "", password: ""});
-	const [sessionToken, setSessionToken] = React.useState(localStorage.getItem("sessionToken"));
 
 	React.useEffect(() => { //redirect if logged-in
-		localStorage.setItem("sessionToken", sessionToken);
-		if (sessionToken) navTo('/')
-	}, [sessionToken])
+		if (props.currUser) navTo('/')
+	}, [props.currUser])
 
 	function handleChange(event) {
 		const {name, value} = event.target;
@@ -33,7 +31,7 @@ function LoginScreen() {
 			.then((res) => {
 				console.log("response: ", res.response)
 				alert("correct credentials")
-				setSessionToken(res.data.sessionToken)
+				props.setSessionToken(res.data.sessionToken)
 				console.log("hi", res)
 			})
 			.catch(err => {

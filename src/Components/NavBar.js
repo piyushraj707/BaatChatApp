@@ -10,13 +10,16 @@ function NavBar(props) {
 					<img className="logo-img" alt="Logo" src='./logo.png' />
 					<div className="logo-name">BaatChat App</div>
 				</div>
-				<div className="navbar-content-right">
-					{props.currUser?
-					<div>{props.currUser.name}</div>
+				{props.currUser?
+					<div className="navbar-content-right">
+						<div>{props.currUser.name}</div>
+						<div onClick={() => {props.setSessionToken('')}}>Logout</div>
+					</div>
 					:
-					<Link className="navbar-content-right-login" to="/signup">Join for Free</Link>
-					}
-				</div>
+					<div className="navbar-content-right">
+						<Link className="navbar-content-right-login" to="/login">Join for Free</Link>
+					</div>
+				}
 			</div>
 		</div>
 	)

@@ -5,15 +5,8 @@ import '../css/login-signup.css'
 import { Link } from "react-router-dom";
 import CryptoJS from "crypto-js";
 
-function SignupScreen() {
+function SignupScreen(props) {
 	const navTo = useNavigate();
-	const [sessionToken, setSessionToken] = React.useState(localStorage.getItem("sessionToken"));
-
-	React.useEffect(() => { //redirect if logged-in
-		localStorage.setItem("sessionToken", sessionToken);
-		if (sessionToken) navTo('/')
-	}, [sessionToken])
-
 	const [formData, setFormData] = React.useState({
 		name: "",
 		email: "",
@@ -21,6 +14,11 @@ function SignupScreen() {
 		password: "",
 		cPassword: ""
 	})
+
+	React.useEffect(() => { //redirect if logged-in
+		if (props.currUser) navTo('/')
+	}, [props.currUser])
+
 
 	function handleChange(event) {
 		const {name, value} = event.target;
@@ -51,7 +49,7 @@ function SignupScreen() {
 
 			axios.post("http://localhost:3002/signup", dataToPost)
 				.then(res => {
-					setSessionToken(res.data.sessionToken);
+					props.setSessionToken(res.data.sessionToken);
 					alert("You are registered successfully (707).")
 				})
 				.catch (err => {

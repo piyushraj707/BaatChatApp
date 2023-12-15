@@ -11,7 +11,13 @@ function App() {
   const [currUser, setCurrUser] = React.useState("");
   const [sessionToken, setSessionToken] = React.useState(localStorage.getItem('sessionToken'));
 
+  function changeSessionToken() {
+    setSessionToken('')
+    localStorage.setItem('sessionToken', "")
+  }
+
 	React.useEffect(() => {
+    localStorage.setItem('sessionToken', sessionToken)
     axios.get("http://localhost:3002/verify", {
       headers: {
         Authorization: 'Bearer ' + sessionToken
@@ -28,13 +34,13 @@ function App() {
 
   return (
     <>
-      <NavBar currUser = {currUser}/>
+      <NavBar currUser = {currUser} setSessionToken = {setSessionToken}/>
       <div className='navbar-bg'></div>
       <Routes>
         <Route path="/" element={<h1>Home</h1>} />
         <Route path='/colorsused' element={<ColorsUsed />} />
-        <Route path="/login" element={<LoginScreen />} />
-        <Route path='/signup' element={<SignupScreen />} />
+        <Route path="/login" element={<LoginScreen currUser = {currUser} setSessionToken = {setSessionToken} />} />
+        <Route path='/signup' element={<SignupScreen currUser = {currUser} setSessionToken = {setSessionToken} />} />
       </Routes>
     </>
   )
