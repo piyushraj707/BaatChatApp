@@ -2,12 +2,14 @@ import {config} from 'dotenv'; config();
 import express from "express";
 import mongoose from "mongoose";
 import cors from "cors";
+const port = 3002;
+
 const app = express();
 app.use(cors({origin: "http://localhost:3000"})) //allow communication between frontend and backend
-// app.use(cors());
-const port = 3002;
-// app.use(express.urlencoded({extended: true}))
+
+//middleware for JSON
 app.use(express.json())
+
 //connecting to MongoDB using Mongoose
 const DBPass = process.env.DB_PASS;
 const mongoDBurl = "mongodb+srv://encrypto_2:"+DBPass+"@cluster0.o3s7dmp.mongodb.net/Authentication?retryWrites=true&w=majority"
@@ -20,6 +22,7 @@ mongoose
 		console.log("Cannot connect to the database");
 	})
 
+//Connecting to different routes
 import authRouter from "./routes/auth.js";
 app.use("/", authRouter)
 

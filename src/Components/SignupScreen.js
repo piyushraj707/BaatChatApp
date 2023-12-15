@@ -1,10 +1,19 @@
 import React from "react";
+import {useNavigate} from "react-router-dom"
 import axios from "axios";
 import '../css/login-signup.css'
 import { Link } from "react-router-dom";
-// import crypto from "crypto"
+import CryptoJS from "crypto-js";
 
 function SignupScreen() {
+	const navTo = useNavigate();
+	const [sessionToken, setSessionToken] = React.useState(localStorage.getItem("sessionToken"));
+
+	React.useEffect(() => { //redirect if logged-in
+		localStorage.setItem("sessionToken", sessionToken);
+		if (sessionToken) navTo('/')
+	}, [sessionToken])
+
 	const [formData, setFormData] = React.useState({
 		name: "",
 		email: "",
@@ -22,8 +31,7 @@ function SignupScreen() {
 	}
 
 	function hashPass(pass) {
-		const salt = "adfa"
-		return {salt: salt, password: pass};
+		return CryptoJS.SHA256(pass).toString(CryptoJS.enc.Hex);
 	}
 
 	function isEmpty() {
@@ -38,12 +46,16 @@ function SignupScreen() {
 		if (isEmpty()) alert("Please fill the form completely.");
 		else if (formData.password !== formData.cPassword) alert("Passwords do not match!")
 		else {
-			axios.post("http://localhost:3002/signup", {...formData, ...hashPass(formData.password)})
+			const dataToPost = {...formData, password: hashPass(formData.password)};
+			delete dataToPost["cPassword"];
+
+			axios.post("http://localhost:3002/signup", dataToPost)
 				.then(res => {
-					if (res.status === 409) alert("username already taken")
-					else alert("success")
+					setSessionToken(res.data.sessionToken);
+					alert("You are registered successfully (707).")
 				})
 				.catch (err => {
+					if (err.response.status === 409) alert("username already taken")
 					console.log("There was an error.")
 					console.log(err)
 				})
