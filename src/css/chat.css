@@ -1,0 +1,57 @@
+.container-outer {
+	align-items: center;
+	display: flex;
+	flex-direction: column;
+}
+
+.container-inner {
+	display: flex;
+	max-width: 1800px;
+	width: 75vw;
+}
+
+.left {
+	flex-grow: 1;
+	margin: 10px 20px;
+}
+
+.right {
+	flex-grow: 5;
+	margin: 10px 20px;
+}
+
+.left-card {
+	align-items: center;
+	background-color: #F6F7D3;
+	border-radius: 15px;
+	color: #495664;
+	display: flex;
+	height: 70px;
+	justify-content: space-between;
+	margin: 20px 30px;
+	max-width: 450px;
+	padding: 10px 20px;
+	width: 100rem;
+}
+
+.contact-name {
+	font-weight: bolder;
+	font-size: large;
+}
+
+.left-header-text {
+	font-weight: bolder;
+	font-size: xx-large;
+}
+
+.left-card:hover {
+	box-shadow: 0 0px 15px #49566433;
+}
+
+.left-header:hover {
+	box-shadow: 0 0 0 0;
+}
+
+.contact:hover {
+	cursor: pointer;
+}

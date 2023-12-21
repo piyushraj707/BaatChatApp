@@ -3,6 +3,7 @@ import User from "../models/user.js"
 import jwt from "jsonwebtoken"
 import CryptoJS from "crypto-js";
 import {config} from 'dotenv'; config();
+import authenticateToken from "../middlewares/authenticateToken.js";
 
 const router = express.Router();
 
@@ -17,17 +18,6 @@ function salting(pass, salt = null) {
 
 function checkPass(userInputPass, savedPass, salt) {
 	return salting(userInputPass, salt).password === savedPass;
-}
-
-function authenticateToken(req, res, next) {
-	const authHeader = req.headers.authorization;
-	const token = authHeader && authHeader.split(' ')[1]
-  	if (!token) return res.sendStatus(401)
-	jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, userInfo) => {
-		if (err) res.sendStatus(403)
-		res.json(userInfo);
-	})
-	next();
 }
 
 router.get("/verify", authenticateToken, (req, res) => {

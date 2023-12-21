@@ -1,0 +1,27 @@
+.add-button-box {
+	height: 30px;
+	width: 30px;
+	border-color: #495664;
+}
+
+.add-button-box:hover {
+	cursor: pointer;
+}
+
+.bar {
+	position: relative;
+	background-color: #495664;
+	border-radius: 5px;
+}
+
+.vertical {
+	height: inherit;
+	width: 5px;
+	left: 12px;
+}
+
+.horizontal {
+	height: 5px;
+	width: inherit;
+	bottom: 18px;
+}
