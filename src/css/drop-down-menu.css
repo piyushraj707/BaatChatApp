@@ -1,0 +1,48 @@
+.menu-container {
+	position: absolute;
+	padding: 10px 10px;
+	background-color: #F6F7D3;
+	color: #495664;
+	border-radius: 15px;
+	right: 0em;
+	top: 3em;
+	width: 300px;
+	display: flex;
+	flex-direction: column;
+	box-shadow: 5px 5px 20px 0px #49566433;
+}
+
+.menu-container div {
+	text-align: center;
+}
+
+.menu-container .name {
+	font-size: xx-large;
+	padding: 20px 20px;
+}
+
+.menu-container .username, .menu-container .email {
+	font-size: small;
+	margin: 3px 0px;
+}
+
+.menu-container .logout-button {
+	margin: 20px 20px;
+	font-size: x-large;
+}
+
+.menu-container .logout-button:hover {
+	cursor: pointer;
+}
+
+.menu-container .blank-notif {
+	margin: 25% 0%;
+}
+
+
+.menu-container .divider {
+	border: solid;
+	border-color: rgba(0, 0, 0, 0.295);
+	border-width: 1px 0px 0px 0px;
+	margin: 5px 15%;
+}

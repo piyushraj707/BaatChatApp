@@ -47,7 +47,7 @@ function App() {
         <Route path="/" element={<h1>Home</h1>} />
         <Route path="/login" element={<LoginScreen currUser = {currUser} setSessionToken = {setSessionToken} />} />
         <Route path='/signup' element={<SignupScreen currUser = {currUser} setSessionToken = {setSessionToken} />} />
-        <Route path='/chat' element = {<BaatChat />} />
+        <Route path='/chat' element = {<BaatChat sessionToken = {sessionToken} />} />
         <Route path='/colorsused' element={<ColorsUsed />} />
       </Routes>
     </>

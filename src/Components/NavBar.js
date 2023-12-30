@@ -1,8 +1,10 @@
 import React from "react";
+import DropdownMenu from './DropdownMenu.js'
 import '../css/navbar.css'
 import { Link } from "react-router-dom";
 
 function NavBar(props) {
+	const [notif, setNotif] = React.useState(false);
 	return (
 		<div className="navbar-outer">
 			<div className="navbar-inner">
@@ -12,8 +14,13 @@ function NavBar(props) {
 				</div>
 				{props.currUser?
 					<div className="navbar-content-right">
-						<div>{props.currUser.name}</div>
-						<div onClick={() => {props.setSessionToken('')}}>Logout</div>
+						<div onClick={() => {setNotif(!notif)}} className="navbar-profile">
+							{props.currUser.name}
+							{
+								notif && <DropdownMenu currUser = {props.currUser} setSessionToken = {props.setSessionToken} />
+							}
+						</div>
+						{/* <div onClick={() => {props.setSessionToken('')}}>Logout</div> */}
 					</div>
 					:
 					<div className="navbar-content-right">

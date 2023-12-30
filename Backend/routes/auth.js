@@ -22,6 +22,7 @@ function checkPass(userInputPass, savedPass, salt) {
 
 router.get("/verify", authenticateToken, (req, res) => {
 	console.log("verification request received");
+	res.json(req.userInfo)
 	res.status(200)
 })
 
@@ -42,7 +43,7 @@ router.post("/signup", (req, res) => {
 				})
 				user.save()
 					.then(()=> {
-						const sessionToken = jwt.sign({username: req.body.username, name: req.body.name}, process.env.ACCESS_TOKEN_SECRET)
+						const sessionToken = jwt.sign({username: req.body.username, name: req.body.name, email: req.body.email}, process.env.ACCESS_TOKEN_SECRET)
 						res
 							.status(200)
 							.json({sessionToken: sessionToken, msg: "User registered successfully (707)."})
@@ -59,13 +60,13 @@ router.post("/login", (req, res) => {
 	console.log("post request at /login")
 	console.log("Data received: ", req.body);
 	User.findOne({username: req.body.username})
-		.then((userFound)=> {
+		.then((userFound) => {
 			if (!userFound)
 				res.status(404).send("User not found. Please register (707).");
 			else if (checkPass(req.body.password, userFound.password, userFound.salt)) {//password matches
 				User.findOne({username: req.body.username})
 				.then(user => {
-					const sessionToken = jwt.sign({username: user.username, name: user.name}, process.env.ACCESS_TOKEN_SECRET)
+					const sessionToken = jwt.sign({username: user.username, name: user.name, email: user.email}, process.env.ACCESS_TOKEN_SECRET)
 					res
 						.status(200)
 						.json({sessionToken: sessionToken, msg: "login credentials correct (707)."})

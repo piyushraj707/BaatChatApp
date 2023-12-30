@@ -13,19 +13,19 @@
 	border-color: #95959520;
 	border-radius: 10px;
 	border-width: 3px;
-	align-items: center;
 	color: #495664;
+	width: 20rem;
 }
 
 .mainForm {
 	display: flex;
 	flex-direction: column;
+	width: 100%;
 }
 
 .Container-2 input {
 	border: none;
 	height: 2rem;
-	width: 20rem;
 	margin: 2px 0px 12px 0px;
 	border-radius: 5px;
 	padding: 2px 5px;
@@ -48,4 +48,5 @@
 
 .Container-2 > div {
 	margin: 20px 0px 0px 0px;
+	text-align: center;
 }

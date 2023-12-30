@@ -2,15 +2,24 @@ import React from "react";
 import axios from "axios";
 import '../css/AddButton.css'
 
-function AddButton() {
+function AddButton(props) {
 	function handleClick() {
 		const friend = prompt("Enter username of your friend");
-		axios.get("http://localhost:3002/addfriend/abcd")
-			.then(() => {
-				alert("success")
+		if (!friend.length) return;
+		if (props.myFriends.length && props.myFriends.find(obj => obj.username === friend)) return;
+		axios.get("http://localhost:3002/addfriend/" + friend, {
+				headers: {
+					Authorization: 'Bearer ' + props.sessionToken
+				}
 			})
-			.catch(() => {
-				alert("No user with this username")
+			.then((res) => {
+				props.setMyFriends(oldVal => [...oldVal, {username: res.data.username, name: res.data.name}])
+				alert('Friend added successfully.')
+			})
+			.catch((err) => {
+				if (err.response.status === 404) alert('Username not found.')
+				else if (err.response.status === 400) alert('Cannot add yourself as friend')
+				else alert("Something went wrong.")
 			});
 	}
 	return (

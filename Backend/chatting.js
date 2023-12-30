@@ -23,7 +23,7 @@ const configureSocket = (server) => {
 		console.log('User', socket.username, 'connected with id:', socket.id);
 		socketIdToUserId.set(socket.id, socket.username);
 		socket.on('disconnect', () => {
-			console.log("User ", socket.username, ' with ID: ', socket.id, ' disconnected');
+			console.log("User", socket.username, 'with ID:', socket.id, 'disconnected');
 		})
 	})
 }

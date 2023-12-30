@@ -41,3 +41,7 @@
 	font-family: 'Pacifico', cursive;
 	font-size: x-large;
 }
+
+.navbar-profile {
+	position: relative
+}

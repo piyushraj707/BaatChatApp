@@ -2,15 +2,28 @@ import React from "react";
 import AddButton from "./AddButton";
 import "../css/chat.css"
 
-function BaatChat() {
+function BaatChat(props) {
+	const [myFriends, setMyFriends] = React.useState([])
+	const chatCount = React.useRef(0);
 	return (
 		<div className="container-outer">
 			<div className="container-inner">
 				<div className="left"> {/* this div would contain the contact list */}
 					<div className="left-header left-card">
 						<div className="left-header-text">All Chats</div>
-						<AddButton />
+						<AddButton sessionToken = {props.sessionToken} myFriends = {myFriends} setMyFriends = {setMyFriends} />
 					</div>
+					{
+						myFriends.map((friend) => {
+							chatCount.current += 1
+							return (
+								<div key={chatCount.current}  className="contact left-card">
+									<div className="contact-name">{friend.name}</div>
+									<div className="chat-preview">Conduction me mai F lag gaya</div>
+								</div>
+							)
+						})
+					}
 					<div className="contact left-card">
 						<div className="contact-name">Yogesh Banshiwal</div>
 						<div className="chat-preview">Conduction me mai F lag gaya</div>

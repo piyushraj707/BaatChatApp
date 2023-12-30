@@ -12,7 +12,7 @@ app.use(cors());
 
 //middleware for JSON
 app.use(express.json())
-app.use(express.urlencoded({extended: false}))
+// app.use(express.urlencoded({extended: false}))
 
 //connecting to MongoDB using Mongoose
 const DBPass = process.env.DB_PASS;
