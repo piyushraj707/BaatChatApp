@@ -5,7 +5,7 @@ import '../css/AddButton.css'
 function AddButton(props) {
 	function handleClick() {
 		const friend = prompt("Enter username of your friend");
-		if (!friend.length) return;
+		if (!friend) return;
 		if (props.myFriends.length && props.myFriends.find(obj => obj.username === friend)) return;
 		axios.get("http://localhost:3002/addfriend/" + friend, {
 				headers: {

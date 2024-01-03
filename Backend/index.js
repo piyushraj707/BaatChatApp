@@ -34,6 +34,7 @@ app.listen(PORT, () => {
 	console.log('The server is running on', PORT);
 })
 
+
 //Connecting to different routes
 
 //1. Connecting to authorization route
@@ -51,3 +52,7 @@ socketServer.listen(SOCKET_PORT, () => {
 //3. Connecting to addFriend router:
 import addFriend from './routes/addfriend.js'
 app.use("/addfriend", addFriend);
+
+// 4. Router to exchange messages
+import exchMsg from './routes/exchMsg.js'
+app.use('/exchMsg', exchMsg); 

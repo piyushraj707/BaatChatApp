@@ -2,12 +2,13 @@
 	align-items: center;
 	display: flex;
 	flex-direction: column;
+	justify-content: space-around;
 }
 
 .container-inner {
 	display: flex;
-	max-width: 1800px;
-	width: 75vw;
+	width: 90vw;
+	max-width: 1900px;
 }
 
 .left {
@@ -16,8 +17,11 @@
 }
 
 .right {
-	flex-grow: 5;
-	margin: 10px 20px;
+	flex-grow: 10;
+	display: flex;
+	flex-direction: column;
+	margin: 30px 20px;
+	height: 82vh;
 }
 
 .left-card {
@@ -29,9 +33,8 @@
 	height: 70px;
 	justify-content: space-between;
 	margin: 20px 30px;
-	max-width: 450px;
 	padding: 10px 20px;
-	width: 100rem;
+	min-width: 350px;
 }
 
 .contact-name {
@@ -45,7 +48,7 @@
 }
 
 .left-card:hover {
-	box-shadow: 0px 0px 15px 0px #49566433;
+	box-shadow: 0px 0px 15px 0px #49566474;
 }
 
 .left-header:hover {
@@ -54,4 +57,112 @@
 
 .contact:hover {
 	cursor: pointer;
+}
+
+.msg-outer-container {
+	background-color: #F6F7D3;
+	height: 75px;
+	margin: 15px 0px 0px 0px;
+	border-radius: 15px;
+}
+
+.msg-outer-container:focus-within {
+	box-shadow: 0px 0px 15px 0px #49566474;
+}
+
+.msg-form {
+	height: inherit;
+	display: flex;
+	justify-content: space-around;
+	align-items: center;
+	padding: 0px 15px;
+}
+
+.msg-input {
+	flex-grow: 8;
+	border: none;
+	border-radius: 15px;
+	padding: 5px 15px;
+	height: 50%;
+	background-color: #F8FCEB;
+	font-weight: bold;
+	font-size: medium;
+	color: #495664;
+}
+
+.msg-input:focus {
+	outline-style: none;
+}
+
+.send-button {
+	flex-grow: 1;
+	position: relative;
+	cursor: pointer;
+	height: 70%;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+}
+
+.send-button div {
+	cursor: pointer;
+	width: 33px;
+	height: 8px;
+	background-color: #495664;
+	border-radius: 3px;
+}
+
+.send-button-bar-1 {
+	transform: rotate(40deg);
+	margin: 8px 0px;
+}
+
+.send-button-bar-2 {
+	transform: rotate(-40deg);
+	margin: 1px 0px;
+}
+
+.convo-outer-container {
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-end;
+	background-color: #F6F7D3;
+	flex-grow: 2;
+	height: auto;
+	border-radius: 15px;
+	padding: 15px 20px;
+}
+
+.my-msg {
+	align-self: flex-end;
+}
+
+.convo-outer-container div {
+	background-color:#F8FCEB;
+	color:#495664;
+	padding: 8px 13px;
+	margin: 5px 0px;
+	border-radius: 15px;
+	width: fit-content;
+	max-width: 60%;
+	color: #495664;
+	font-weight: bold;
+}
+
+.convo-outer-container div:hover {
+	box-shadow: 0px 0px 15px 0px #49566474;
+}
+
+#no-currFriend {
+	margin: auto; 
+	background-color: inherit;
+	font-weight: lighter;
+	font-size: small;
+	font-style: italic;
+	letter-spacing: 2px;
+}
+
+#no-currFriend:hover {
+	box-shadow:none;
 }
