@@ -19,6 +19,7 @@ router.get("/:friend", authenticateToken, async (req, res) => {
 })
 
 router.post("/", authenticateToken, async(req, res) => {
+	//send a msg to req.body.friend
 	try {
 		const dataToSave = {
 			author: req.userInfo.username,
@@ -27,7 +28,7 @@ router.post("/", authenticateToken, async(req, res) => {
 		}
 		const participants =  [req.userInfo.username, req.body.friend].sort();
 		const doesExist = await chatsDB.countDocuments({participants: participants});
-		if (doesExist) {
+		if (doesExist) { //If there already exists a chat-history
 			await chatsDB.findOneAndUpdate(
 				{participants: participants},
 				{$push: {messages: dataToSave}},
@@ -35,17 +36,22 @@ router.post("/", authenticateToken, async(req, res) => {
 			)
 		}
 		else {
-			console.log("does not exist")
+			console.log("does not exist") //talking to the friend for the first time
 			const newEntry = new chatsDB({
 				participants: participants,
 				messages: [dataToSave]
 			})
 			newEntry.save()
 				.then(() => {
-					console.log("Message saved")
+					console.log("Message sent")
+				})
+				.catch((err) => {
+					console.log('error occured while creating a new chat thread. Here is the error: ')
+					console.log("newEntry", newEntry);
+					console.log("error: ", err)
 				})
 			}
-		res.status(200).send("Message saved");
+		res.status(200).send("Message sent");
 	}
 	catch {
 		console.log("There was an error saving the msg");

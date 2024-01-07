@@ -2,59 +2,22 @@ import React from "react";
 import axios from "axios"
 import MsgBox from "./MsgBox";
 
-const demoChat = [
-	{
-		author: 'kuli',
-		timestamp: 1,
-		text: "Hey!!!"
-	},
-	{
-		author: 'piyushraj707',
-		timestamp: 2,
-		text: "Hello!"
-	},
-	{
-		author: 'kuli',
-		timestamp: 3,
-		text: "How are you?"
-	},
-	{
-		author: 'piyushraj707',
-		timestamp: 4,
-		text: 'Ya I am fine.'
-	},
-	{
-		author: 'kuli',
-		timestamp: 5,
-		text: 'Just wanted to tell you that you are fucked up!'
-	},
-	{
-		author: 'kuli',
-		timestamp: 5,
-		text: 'Your professor was telling me that you have performed so bad in your exam.'
-	},
-	{
-		author: 'kuli',
-		timestamp: 5,
-		text: 'Meet him as soon as possible'
-	},
-	{
-		author: 'piyushraj707',
-		timestamp: 1,
-		text: '😭😭😭'
-	},
-	{
-		author: 'piyushraj707',
-		timestamp: 1,
-		text: 'Thanks for telling me!'
-	}
-]
-
-function Convo({currFriend, sessionToken}) {
+function Convo({currFriend, socket, sessionToken}) {
 	const [msgs, setMsgs] = React.useState([]);
 
+	React.useEffect(() => {
+		if (socket.current) {
+			socket.current.on('receive-msg', msg => {
+				setMsgs(oldMsgs => [
+					...oldMsgs,
+					msg
+				])
+				console.log("msg received (Convo): ", msg)
+			})
+		}
+	}, [socket.current])
+
 	async function fetchMsgs() {
-		// return;
 		try {
 			const result = await axios.get("http://localhost:3002/exchMsg/" + currFriend, {
 				headers: {
@@ -93,6 +56,7 @@ function Convo({currFriend, sessionToken}) {
 				<MsgBox
 					setMsgs = {setMsgs}
 					currFriend = {currFriend}
+					socket = {socket}
 					sessionToken = {sessionToken}
 				/>
 			}

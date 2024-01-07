@@ -4,7 +4,6 @@ const chatsSchema = new mongoose.Schema({
 	participants: {
 		type: [String],
 		require: true,
-		unique: true
 	},
 	messages: {
 		type: [{

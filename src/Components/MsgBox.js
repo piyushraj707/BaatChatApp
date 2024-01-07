@@ -1,31 +1,23 @@
 import React from "react";
-import axios from "axios";
 
-function MsgBox({setMsgs, currFriend, sessionToken}) {
+function MsgBox({setMsgs, currFriend, socket, sessionToken}) {
 	const [text, setText] = React.useState("")
 	
 	function handleSendMsg(event) {
 		event?.preventDefault();
 		if (!text) return;
-		axios.post('http://localhost:3002/exchMsg/', {
+		setMsgs(oldVal => [...oldVal, {
+			author: 'me',
+			timestamp: 1,
+			text: text
+		}])
+		socket.current?.emit('send-msg', {
 			friend: currFriend,
 			text: text
-		}, {
-			headers: {
-				Authorization: 'Bearer ' + sessionToken
-			}
 		})
-		.then(res => {
-			setMsgs(oldVal => [...oldVal, {
-				author: 'me',
-				timestamp: 1,
-				text: text
-			}])
-			setText('')
-		})
-		.catch(err => {
-			console.log("There was an error sending the msg.")
-		})
+		
+		setText('')
+		return;
 	}
 
 	return (
