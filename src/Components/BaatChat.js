@@ -8,12 +8,6 @@ function BaatChat(props) {
 	const [myFriends, setMyFriends] = React.useState([])
 	const [currFriend, setCurrFriend] = React.useState('')
 
-	React.useEffect(() => {
-		props.socket.current?.on('receive-msg', msg => {
-			console.log("msg received (BaatChat): ", msg)
-		})
-	}, [props.socket])
-
 	return (
 		<div className="container-outer">
 			<div className="container-inner">

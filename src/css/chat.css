@@ -16,6 +16,13 @@
 	margin: 10px 20px;
 }
 
+.scroll {
+	flex-grow: 10;
+	display: flex;
+	flex-direction: column;
+	height: 82vh;
+	overflow-y: auto;
+}
 .right {
 	flex-grow: 10;
 	display: flex;
@@ -132,6 +139,13 @@
 	height: auto;
 	border-radius: 15px;
 	padding: 15px 20px;
+	/* overflow-y: auto; */
+	/* overflow-y: scroll;
+	overflow-x: hidden; */
+}
+
+.scroll {
+	overflow-y: scroll;
 }
 
 .my-msg {

@@ -4,20 +4,50 @@ import MsgBox from "./MsgBox";
 
 function Convo({currFriend, socket, sessionToken}) {
 	const [msgs, setMsgs] = React.useState([]);
+	const [arrivalMessage, setArrivalMessage] = React.useState();
+	const scrollToBottom = React.useRef();
+
+	React.useEffect(() => {
+		//scroll the chats to the bottom when loaded
+		const scrollDiv = scrollToBottom.current;
+		scrollDiv.scrollTop = scrollDiv.scrollHeight;
+	})
 
 	React.useEffect(() => {
 		if (socket.current) {
-			socket.current.on('receive-msg', msg => {
-				setMsgs(oldMsgs => [
-					...oldMsgs,
-					msg
-				])
-				console.log("msg received (Convo): ", msg)
+			socket.current.on('receive-msg', (msg) => {
+				setArrivalMessage(msg);
 			})
 		}
-	}, [socket.current])
+	})
+
+	React.useEffect(() => {
+		if (arrivalMessage?.author === currFriend) {
+			setMsgs(oldMsgs => [
+				...oldMsgs,
+				arrivalMessage
+			])
+		}
+	}, [arrivalMessage])
+
+	// React.useEffect(() => {
+	// 	console.log("currFriend: (Convo)", currFriend)
+	// 	if (socket.current) {
+	// 		socket.current.on('receive-msg', msg => {
+	// 			console.log("msg.author: (Convo)", msg.author)
+	// 			if (msg.author == currFriend)  {
+	// 				setMsgs(oldMsgs => [
+	// 					...oldMsgs,
+	// 					msg
+	// 				])
+	// 			}
+	// 			console.log("msgs: ", msgs)
+	// 		})
+	// 	}
+	// }, [])
 
 	async function fetchMsgs() {
+		console.log('currFriend: ', currFriend)
 		try {
 			const result = await axios.get("http://localhost:3002/exchMsg/" + currFriend, {
 				headers: {
@@ -37,30 +67,32 @@ function Convo({currFriend, socket, sessionToken}) {
 	}, [currFriend]);
 
 	return (
-		<div className="right">
-			<div className="convo-outer-container">
+			<div className="right">
+				<div className="scroll" ref={scrollToBottom}>
+					<div className="convo-outer-container">
+						{
+							currFriend?
+							msgs?.map(msg => 
+								msg.author === currFriend?
+								<div className="friend-msg" key={msg.id} >{msg.text}</div>
+								:
+								<div className="my-msg" key={msg.id} >{msg.text}</div>
+							)
+							:
+							<div id="no-currFriend">Select a friend to chat</div>
+						}
+					</div>
+				</div>
 				{
-					currFriend?
-					msgs?.map(msg => 
-						msg.author === currFriend?
-						<div className="friend-msg">{msg.text}</div>
-						:
-						<div className="my-msg">{msg.text}</div>
-					)
-					:
-					<div id="no-currFriend">Select a friend to chat</div>
+					currFriend &&
+					<MsgBox
+						setMsgs = {setMsgs}
+						currFriend = {currFriend}
+						socket = {socket}
+						sessionToken = {sessionToken}
+					/>
 				}
 			</div>
-			{
-				currFriend &&
-				<MsgBox
-					setMsgs = {setMsgs}
-					currFriend = {currFriend}
-					socket = {socket}
-					sessionToken = {sessionToken}
-				/>
-			}
-		</div>
 	)
 }
 
