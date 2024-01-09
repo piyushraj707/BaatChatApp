@@ -3,6 +3,7 @@ import LoginScreen from './Components/LoginScreen.js'
 import SignupScreen from './Components/SignupScreen'
 import ColorsUsed from './Components/colorsUsed.js'
 import NavBar from './Components/NavBar.js'
+import Home from './Components/Home.js';
 import BaatChat from './Components/BaatChat.js';
 import { Route, Routes } from 'react-router-dom';
 import './App.css';
@@ -47,10 +48,10 @@ function App() {
       <NavBar currUser = {currUser} setSessionToken = {setSessionToken}/>
       <div className='navbar-bg'></div>
       <Routes>
-        <Route path="/" element={<h1>Home</h1>} />
+        <Route path="/" element={<Home currUser = {currUser} />} />
         <Route path="/login" element={<LoginScreen currUser = {currUser} setSessionToken = {setSessionToken} />} />
         <Route path='/signup' element={<SignupScreen currUser = {currUser} setSessionToken = {setSessionToken} />} />
-        <Route path='/chat' element = {<BaatChat sessionToken = {sessionToken} socket = {socket}/>} />
+        <Route path='/chat' element = {<BaatChat currUser = {currUser} sessionToken = {sessionToken} socket = {socket}/>} />
         <Route path='/colorsused' element={<ColorsUsed />} />
       </Routes>
     </>

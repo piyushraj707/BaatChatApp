@@ -2,11 +2,17 @@ import React from "react";
 import AddButton from "./AddButton";
 import FriendList from "./friendList";
 import Convo from "./Convo";
+import {useNavigate} from "react-router-dom"
 import "../css/chat.css"
 
 function BaatChat(props) {
 	const [myFriends, setMyFriends] = React.useState([])
 	const [currFriend, setCurrFriend] = React.useState('')
+	const navTo = useNavigate();
+
+	React.useEffect(() => {
+		if (!props.currUser) navTo("/login")
+	}, [props.currUser])
 
 	return (
 		<div className="container-outer">

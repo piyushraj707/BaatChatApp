@@ -10,7 +10,7 @@ function LoginScreen(props) {
 	const [formData, setFormData] = React.useState({username: "", password: ""});
 
 	React.useEffect(() => { //redirect if logged-in
-		if (props.currUser) navTo('/')
+		if (props.currUser) navTo('/chat')
 	}, [props.currUser])
 
 	function handleChange(event) {
