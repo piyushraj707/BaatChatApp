@@ -1,13 +1,14 @@
 import React from "react";
 import axios from "axios";
 import '../css/AddButton.css'
+import { BASE_URL } from "../myEnv";
 
 function AddButton(props) {
 	function handleClick() {
 		const friend = prompt("Enter username of your friend");
 		if (!friend) return;
 		if (props.myFriends.length && props.myFriends.find(obj => obj.username === friend)) return;
-		axios.get("http://localhost:3002/addfriend/" + friend, {
+		axios.get(BASE_URL + "/addfriend/" + friend, {
 				headers: {
 					Authorization: 'Bearer ' + props.sessionToken
 				}

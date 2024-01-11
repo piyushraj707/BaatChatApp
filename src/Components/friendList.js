@@ -1,5 +1,6 @@
 import React from "react";
 import axios from "axios";
+import { BASE_URL } from "../myEnv";
 
 function FriendList(props) {
 	const chatCount = React.useRef(0);
@@ -10,7 +11,7 @@ function FriendList(props) {
 	
 	async function fetchFriendList() {
 		try {
-			const result = await axios.get("http://localhost:3002/addfriend/myfriends", {
+			const result = await axios.get(BASE_URL + "/addfriend/myfriends", {
 				headers: {
 					Authorization: 'Bearer ' + props.sessionToken
 				}

@@ -1,5 +1,6 @@
 import React from "react";
 import axios from "axios"
+import { BASE_URL } from "../myEnv";
 import MsgBox from "./MsgBox";
 
 function Convo({currFriend, socket, sessionToken}) {
@@ -49,7 +50,7 @@ function Convo({currFriend, socket, sessionToken}) {
 	async function fetchMsgs() {
 		console.log('currFriend: ', currFriend)
 		try {
-			const result = await axios.get("http://localhost:3002/exchMsg/" + currFriend, {
+			const result = await axios.get(BASE_URL + "/exchMsg/" + currFriend, {
 				headers: {
 					Authorization: 'Bearer ' + sessionToken
 				}

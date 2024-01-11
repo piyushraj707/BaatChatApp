@@ -1,6 +1,7 @@
 import React from "react";
 import {useNavigate} from "react-router-dom"
 import axios from "axios";
+import { BASE_URL } from "../myEnv";
 import '../css/login-signup.css'
 import { Link } from "react-router-dom";
 import CryptoJS from "crypto-js";
@@ -47,7 +48,7 @@ function SignupScreen(props) {
 			const dataToPost = {...formData, password: hashPass(formData.password)};
 			delete dataToPost["cPassword"];
 
-			axios.post("http://localhost:3002/signup", dataToPost)
+			axios.post(BASE_URL + "/signup", dataToPost)
 				.then(res => {
 					props.setSessionToken(res.data.sessionToken);
 					alert("You are registered successfully (707).")

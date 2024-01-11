@@ -1,5 +1,6 @@
 import React from "react";
 import axios from "axios";
+import { BASE_URL } from "../myEnv";
 import {useNavigate} from "react-router-dom"
 import { Link } from "react-router-dom";
 import CryptoJS from "crypto-js";
@@ -27,7 +28,7 @@ function LoginScreen(props) {
 		if (!formData.username) alert("Please enter username");
 		else if (!formData.password) alert("Please enter password");
 		else {
-			axios.post("http://localhost:3002/login", {username: formData.username, password: hashPass(formData.password)})
+			axios.post(BASE_URL + "/login", {username: formData.username, password: hashPass(formData.password)})
 			.then((res) => {
 				console.log("response: ", res.response)
 				alert("correct credentials")

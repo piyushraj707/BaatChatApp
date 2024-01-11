@@ -9,6 +9,7 @@ import { Route, Routes } from 'react-router-dom';
 import './App.css';
 import axios from 'axios';
 import {io} from 'socket.io-client'
+import { BASE_URL } from './myEnv.js';
 
 function App() {
   const [currUser, setCurrUser] = React.useState("");
@@ -20,7 +21,7 @@ function App() {
     // if (isFirstTime.current) {//Only run this code if it is the first time the component is rendering
       isFirstTime.current = 0;
       localStorage.setItem('sessionToken', sessionToken)
-      axios.get("http://localhost:3002/verify", {
+      axios.get(BASE_URL + "/verify", {
         headers: {
           Authorization: 'Bearer ' + sessionToken
         }
