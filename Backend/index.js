@@ -30,9 +30,9 @@ app.get("/", (req, res) => {
 	res.send("<h1>Hello World. This is a backend server</h1>")
 })
 
-app.listen(PORT, () => {
-	console.log('The server is running on', PORT);
-})
+// app.listen(PORT, () => {
+// 	console.log('The server is running on', PORT);
+// })
 
 
 //Connecting to different routes
