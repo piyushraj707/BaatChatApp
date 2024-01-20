@@ -36,6 +36,7 @@ function BaatChat(props) {
 				<Convo
 					currFriend = {currFriend}
 					socket = {props.socket}
+					isLive = {props.isLive}
 					sessionToken = {props.sessionToken}
 				/>
 			</div>

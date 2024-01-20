@@ -3,7 +3,7 @@ import axios from "axios"
 import { BASE_URL } from "../myEnv";
 import MsgBox from "./MsgBox";
 
-function Convo({currFriend, socket, sessionToken}) {
+function Convo({currFriend, socket, isLive, sessionToken}) {
 	const [msgs, setMsgs] = React.useState([]);
 	const [arrivalMessage, setArrivalMessage] = React.useState();
 	const scrollToBottom = React.useRef();
@@ -90,6 +90,7 @@ function Convo({currFriend, socket, sessionToken}) {
 						setMsgs = {setMsgs}
 						currFriend = {currFriend}
 						socket = {socket}
+						isLive = {isLive}
 						sessionToken = {sessionToken}
 					/>
 				}

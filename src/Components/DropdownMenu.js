@@ -10,7 +10,7 @@ function DropdownMenu (props) {
 			<div className="email">{props.currUser.email}</div>
 			<div className="divider"></div>
 			<div className="notifications">
-				<div className="blank-notif">No New Notifications</div>
+				<div className="blank-notif">If your are connected via Vercel, live messaging won't work. Run this on a local machine to support Live Messaging.</div>
 			</div>
 			<div className="divider"></div>
 			<div onClick={() => {props.setSessionToken('')}} className="logout-button">Log Out</div>
