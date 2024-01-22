@@ -26,6 +26,7 @@ async function addNewFriend(username, newFriend) {
 }
 
 router.get("/myfriends", authenticateToken, async (req, res) => {
+	//get all friends of user req.userInfo.username
 	try {
 		const result = await myFriends.findOne({username: req.userInfo.username});
 		if (result) {
@@ -34,7 +35,8 @@ router.get("/myfriends", authenticateToken, async (req, res) => {
 				const friendInfo = await user.findOne({username: friend});
 				return {
 					username: friend,
-					name: friendInfo.name
+					name: friendInfo.name,
+					signedSecKey: friendInfo.signedSecKey
 				};
 			})
 			const finalArray = await Promise.all(promises);
@@ -49,8 +51,8 @@ router.get("/myfriends", authenticateToken, async (req, res) => {
 })
 
 router.get("/:friend", authenticateToken, (req, res) => {
+	//API to add ":friend" as a friend
 	const friend = req.params.friend;
-	// console.log(friend)
 	const me = req.userInfo.username
 	user.findOne({username: friend})
 		.then((friendInfo) => {

@@ -5,6 +5,7 @@ import { BASE_URL } from "../myEnv";
 import '../css/login-signup.css'
 import { Link } from "react-router-dom";
 import CryptoJS from "crypto-js";
+import { getSecKey, getSignedSecKey } from "../myCrypto";
 
 function SignupScreen(props) {
 	const navTo = useNavigate();
@@ -45,13 +46,18 @@ function SignupScreen(props) {
 		if (isEmpty()) alert("Please fill the form completely.");
 		else if (formData.password !== formData.cPassword) alert("Passwords do not match!")
 		else {
-			const dataToPost = {...formData, password: hashPass(formData.password)};
+			const dataToPost = {
+				...formData,
+				password: hashPass(formData.password),
+				signedSecKey: getSignedSecKey(getSecKey(hashPass(formData.password))).toString()
+			};
 			delete dataToPost["cPassword"];
 
 			axios.post(BASE_URL + "/signup", dataToPost)
 				.then(res => {
-					props.setSessionToken(res.data.sessionToken);
+					props.secKey.current = getSecKey(dataToPost.password)
 					alert("You are registered successfully (707).")
+					props.setSessionToken(res.data.sessionToken);
 				})
 				.catch (err => {
 					if (err.response.status === 409) alert("username already taken")

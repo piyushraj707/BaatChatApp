@@ -8,7 +8,7 @@ function AddButton(props) {
 		const friend = prompt("Enter username of your friend");
 		if (!friend) return;
 		if (props.myFriends.length && props.myFriends.find(obj => obj.username === friend)) return;
-		axios.get(BASE_URL + "/addfriend/" + friend, {
+		axios.get(BASE_URL + "/friendship/" + friend, {
 				headers: {
 					Authorization: 'Bearer ' + props.sessionToken
 				}

@@ -1,8 +1,9 @@
 import React from "react";
 import axios from "axios";
 import { BASE_URL } from "../myEnv";
+import { encryptMsg } from "../myCrypto";
 
-function MsgBox({ setMsgs, currFriend, socket, isLive, sessionToken }) {
+function MsgBox({ setMsgs, currFriend, socket, isLive, AES_KEY, sessionToken }) {
   const [text, setText] = React.useState("")
 
   function handleSendMsg(event) {
@@ -11,12 +12,12 @@ function MsgBox({ setMsgs, currFriend, socket, isLive, sessionToken }) {
     setMsgs(oldVal => [...oldVal, {
       author: 'me',
       timestamp: 1,
-      text: text
+      text: encryptMsg(AES_KEY, text)
     }])
 
     const dataToPost = {
       friend: currFriend,
-      text: text
+      text: encryptMsg(AES_KEY, text).toString()
     }
     if (isLive.current) {
       socket.current.emit('send-msg', dataToPost);

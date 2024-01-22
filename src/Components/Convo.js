@@ -2,8 +2,10 @@ import React from "react";
 import axios from "axios"
 import { BASE_URL } from "../myEnv";
 import MsgBox from "./MsgBox";
+import { decryptMsg } from "../myCrypto";
+import { AES } from "crypto-js";
 
-function Convo({currFriend, socket, isLive, sessionToken}) {
+function Convo({currFriend, socket, isLive, AES_KEY, sessionToken}) {
 	const [msgs, setMsgs] = React.useState([]);
 	const [arrivalMessage, setArrivalMessage] = React.useState();
 	const scrollToBottom = React.useRef();
@@ -75,9 +77,9 @@ function Convo({currFriend, socket, isLive, sessionToken}) {
 							currFriend?
 							msgs?.map(msg => 
 								msg.author === currFriend?
-								<div className="friend-msg" key={msg.id} >{msg.text}</div>
+								<div className="friend-msg" key={msg.id} >{decryptMsg(AES_KEY, msg.text)}</div>
 								:
-								<div className="my-msg" key={msg.id} >{msg.text}</div>
+								<div className="my-msg" key={msg.id} >{decryptMsg(AES_KEY, msg.text)}</div>
 							)
 							:
 							<div id="no-currFriend">Select a friend to chat</div>
@@ -91,6 +93,7 @@ function Convo({currFriend, socket, isLive, sessionToken}) {
 						currFriend = {currFriend}
 						socket = {socket}
 						isLive = {isLive}
+						AES_KEY={AES_KEY}
 						sessionToken = {sessionToken}
 					/>
 				}

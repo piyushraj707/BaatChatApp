@@ -8,6 +8,7 @@ import "../css/chat.css"
 function BaatChat(props) {
 	const [myFriends, setMyFriends] = React.useState([])
 	const [currFriend, setCurrFriend] = React.useState('')
+	const [AES_KEY, setAES_KEY] = React.useState('');
 	const navTo = useNavigate();
 
 	React.useEffect(() => {
@@ -29,6 +30,8 @@ function BaatChat(props) {
 					<FriendList 
 						myFriends = {myFriends}
 						setMyFriends = {setMyFriends}
+						secKey={props.secKey}
+						setAES_KEY={setAES_KEY}
 						sessionToken = {props.sessionToken}
 						setCurrFriend = {setCurrFriend}
 					/>
@@ -37,6 +40,7 @@ function BaatChat(props) {
 					currFriend = {currFriend}
 					socket = {props.socket}
 					isLive = {props.isLive}
+					AES_KEY={AES_KEY}
 					sessionToken = {props.sessionToken}
 				/>
 			</div>

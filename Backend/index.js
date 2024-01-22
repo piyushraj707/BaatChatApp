@@ -49,9 +49,9 @@ socketServer.listen(SOCKET_PORT, () => {
 	console.log("Socket server is running on PORT: ", SOCKET_PORT)
 })
 
-//3. Connecting to addFriend router:
-import addFriend from './routes/addfriend.js'
-app.use("/addfriend", addFriend);
+//3. Connecting to friendship router:
+import friendship from './routes/friendship.js'
+app.use("/friendship", friendship);
 
 // 4. Router to exchange messages
 import exchMsg from './routes/exchMsg.js'

@@ -10,6 +10,7 @@ import './App.css';
 import axios from 'axios';
 import { io } from 'socket.io-client'
 import { BASE_URL } from './myEnv.js';
+import BigInt from "big-integer"
 
 function App() {
   const [currUser, setCurrUser] = React.useState("");
@@ -17,11 +18,15 @@ function App() {
   const socket = React.useRef()
   const isLive = React.useRef(false);
   const isFirstTime = React.useRef(); //to track whether it is the first time the component is loading.
+  const secKey = React.useRef(localStorage.getItem('secKey')?.toString() !== "null" ?BigInt(localStorage.getItem('secKey')):0); //secret key for Diffie-Hellman key exchange.
+  //const secKey = React.useRef(0)
+
 
   React.useEffect(() => {
     // if (isFirstTime.current) {//Only run this code if it is the first time the component is rendering
     isFirstTime.current = 0;
     localStorage.setItem('sessionToken', sessionToken)
+    localStorage.setItem('secKey', secKey.current?.toString())
     axios.get(BASE_URL + "/verify", {
       headers: {
         Authorization: 'Bearer ' + sessionToken
@@ -41,6 +46,8 @@ function App() {
       })
       .catch(err => {
         setCurrUser(0);
+        localStorage.setItem('sessionToken', null);
+        localStorage.setItem('secKey', null);
         console.log('There was an error')
       })
     // }
@@ -56,9 +63,9 @@ function App() {
       <div className='navbar-bg'></div>
       <Routes>
         <Route path="/" element={<Home currUser={currUser} />} />
-        <Route path="/login" element={<LoginScreen currUser={currUser} setSessionToken={setSessionToken} />} />
-        <Route path='/signup' element={<SignupScreen currUser={currUser} setSessionToken={setSessionToken} />} />
-        <Route path='/chat' element={<BaatChat currUser={currUser} sessionToken={sessionToken} socket={socket} isLive = {isLive}/>} />
+        <Route path="/login" element={<LoginScreen currUser={currUser} secKey={secKey} setSessionToken={setSessionToken} />} />
+        <Route path='/signup' element={<SignupScreen currUser={currUser} secKey={secKey} setSessionToken={setSessionToken} />} />
+        <Route path='/chat' element={<BaatChat currUser={currUser} secKey={secKey} sessionToken={sessionToken} socket={socket} isLive={isLive} />} />
         <Route path='/colorsused' element={<ColorsUsed />} />
       </Routes>
     </>

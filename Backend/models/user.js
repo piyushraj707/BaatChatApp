@@ -13,6 +13,10 @@ const userSchema = new mongoose.Schema({
 		type: String,
 		require: true
 	},
+	signedSecKey: {
+		type: String,
+		require: true
+	},
 	salt: {
 		type: String,
 		require: true

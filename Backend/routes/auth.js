@@ -39,6 +39,7 @@ router.post("/signup", (req, res) => {
 					username: req.body.username,
 					name: req.body.name,
 					email: req.body.email,
+					signedSecKey: req.body.signedSecKey,
 					...salting(req.body.password)
 				})
 				user.save()

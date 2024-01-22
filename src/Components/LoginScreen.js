@@ -4,6 +4,7 @@ import { BASE_URL } from "../myEnv";
 import {useNavigate} from "react-router-dom"
 import { Link } from "react-router-dom";
 import CryptoJS from "crypto-js";
+import { getSecKey } from "../myCrypto";
 import '../css/login-signup.css'
 
 function LoginScreen(props) {
@@ -28,12 +29,15 @@ function LoginScreen(props) {
 		if (!formData.username) alert("Please enter username");
 		else if (!formData.password) alert("Please enter password");
 		else {
-			axios.post(BASE_URL + "/login", {username: formData.username, password: hashPass(formData.password)})
+			const dataToPost = {
+				username: formData.username,
+				password: hashPass(formData.password)
+			}
+			axios.post(BASE_URL + "/login", dataToPost)
 			.then((res) => {
-				console.log("response: ", res.response)
+				props.secKey.current = getSecKey(dataToPost.password)
 				alert("correct credentials")
 				props.setSessionToken(res.data.sessionToken)
-				console.log("hi", res)
 			})
 			.catch(err => {
 				if (err.response.status === 404) alert("Username not found. Please register.")
