@@ -6,9 +6,12 @@ import { getAESKey } from "../myCrypto";
 
 function FriendList(props) {
 	const chatCount = React.useRef(0);
+	const eventTarget = React.useRef(null); //holds onto the current friend div
 
-	function handleClick(friend, AES_KEY) {
-		console.log("AES key in handleClick: ", AES_KEY)
+	function handleClick(friend, AES_KEY, event) {
+		if (eventTarget.current) eventTarget.current.classList.remove('selected-card');
+		event.target.classList.add('selected-card')
+		eventTarget.current = event.target;
 		props.setAES_KEY(AES_KEY)
 		props.setCurrFriend(friend)
 	}
@@ -43,9 +46,9 @@ function FriendList(props) {
 				props.myFriends.map((friend) => {
 					chatCount.current += 1
 					return (
-						<div key = {friend.username} onClick={() => {handleClick(friend.username, friend.AES_KEY)}} className="contact left-card">
+						<div key = {friend.username} onClick={(event) => {handleClick(friend.username, friend.AES_KEY, event)}} className="contact left-card">
 							<div className="contact-name">{friend.name}</div>
-							<div className="chat-preview">Conduction me mai F lag gaya</div>
+							<div className="chat-preview">{/*Conduction me mai F lag gaya*/}</div>
 						</div>
 					)
 				})
